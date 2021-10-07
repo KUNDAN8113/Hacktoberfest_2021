@@ -1,0 +1,32 @@
+//Solution Steps
+//Recursively divide the strs array into two sub-arrays.
+//In the conquer step, merge the result of the two sub-arrays which will be LCP(LCP(strs[left…mid], LCP([mid+1…right])) and return it.
+//Pseudo Code
+string longestCommonPrefix(string[] strs, int size) {
+    if (size == 0) return "-1"
+        return longestCommonPrefixutil(strs, 0 , size - 1)
+}
+string longestCommonPrefixutil(string[] strs, int left, int right) {
+    if (left == right) {
+        return strs[left]
+    }
+    else {
+        int mid = (left + right)/2;
+        string left_lcp =   longestCommonPrefixutil(strs, left , mid)
+        string right_lcp =  longestCommonPrefixutil(strs, mid + 1,right)
+        return commonPrefix(left_lcp, right_lcp)
+   }
+}
+string commonPrefix(String left, String right) {
+    int smaller = min(left.length(), right.length())
+    for (int i = 0 to i < smaller) {
+        if ( left[i] != right[i] )
+            return left.substring(0, i)
+    }
+    return left.substring(0, smaller)
+}
+
+//Complexity Analysis
+//Time complexity: O(S), where S is the number of all characters in the array.
+
+//Space complexity: O(m ⋅ logn)
